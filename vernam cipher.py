@@ -1,14 +1,17 @@
 # code contributed by Shivam Sharma
 # 9th Feb 2023
 
+import time 
+
 print("\n","----"*10)
-plain_text = str(input("\nEnter plain text: "))
-key = str(input("Enter key: "))
+plain_text = str(input("\nEnter plain text: (no spaces) "))
+key = str(input("Enter key: (no spaces) "))
 
 alp = ["A", "B", "C", "D", "E", "F", "G", "H", "I",
        "J", "K", "L", "M", "N", "O", "P", "Q", "R",
        "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
+time.sleep(1)
 # if key is smaller than plain text
 while len(plain_text) > len(key):
     key = key + key
@@ -18,10 +21,12 @@ key = key[0:len(plain_text)]
 plain_text = plain_text.upper()
 key = key.upper()
 print("\nPlain text is: ", plain_text, " Key is: ", key, "\n")
+time.sleep(1)
 
 # setting ciphered text to blank 
 cipher = ""
 fl = []
+
 for i in range(len(plain_text)):
 
     # get index of plain text and key element
@@ -39,8 +44,8 @@ for i in range(len(plain_text)):
     else:
         fl.append(0)
 
-
 print("Encrypted text is: ", cipher)
+time.sleep(1)
 
 # set decrypted text to blank 
 decr = ""
@@ -57,4 +62,5 @@ for l in range(len(cipher)):
     decr = decr + alp[(c_b^k_b)%26]
 
 print("Decrypted text is: ", decr)
+time.sleep(0.5)
 print("\n","----"*10)

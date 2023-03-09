@@ -2,6 +2,7 @@
 # 9th Feb 2023
 
 import time 
+import copy
 
 # function to print matrix elements
 def print_(mat):
@@ -11,13 +12,14 @@ def print_(mat):
         for j in range(len(mat[0])):
             print(mat[i][j], end=" | ")
         print("")
+        time.sleep(0.2)
     print("----" * 30)
 
 # get plain text and key
 
 print("\n","----"*30)
-plain_text = str(input("\nEnter plain text: "))
-key = str(input("Enter key: "))
+plain_text = str(input("\nEnter plain text: (no spaces) "))
+key = str(input("Enter key: (no spaces) "))
 alp = ["A", "B", "C", "D", "E", "F", "G", "H", "I",
        "J", "K", "L", "M", "N", "O", "P", "Q", "R",
        "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -62,7 +64,7 @@ for i in range(len(alp)+1):
             count += 1
 
     # append to one row in list and clear second list
-    list2.append(list1)
+    list2.append(copy.deepcopy(list1))
     list1 = []
 
 time.sleep(1)
@@ -78,3 +80,20 @@ for k in range(len(plain_text)):
 time.sleep(1)
 print("\n\nCiphered text is: ", cipher)
 
+""" now if we want to decrypt some text
+we need to know the key so assume we have the 
+key already then we find the key row
+and the ciphered text column in that row
+which will give us the plain text
+"""
+
+decipher = ""
+i = 0
+for k in range(len(cipher)):
+    j1 = list2[0].index(key[k])
+    j2 = list2[j1].index(cipher[k])
+    if j2==0:
+        j2=1
+    decipher = decipher + list2[i][j2]
+time.sleep(1)
+print("\n\nDeciphered text is: ", decipher)
