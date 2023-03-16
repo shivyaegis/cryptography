@@ -8,7 +8,7 @@ from itertools import chain
 def space():
     print("\n")
     print("----".center(70,"-"))
-    time.sleep(0.5)
+    time.sleep(0.1)
 
 
 def print_mat_linear(m):
@@ -96,10 +96,10 @@ def split(list1):
     space()
     return left_block,right_block
 
-def F_fun(left_block,right_block,key):
+def F_fun(right_block,key):
     # Function F is defined over here
     xor = []
-    for i in range(len(left_block)):
+    for i in range(len(right_block)):
         xor.append(str(bin((int(right_block[i],2)^int(key[i],2)))))
 
     return xor
@@ -170,6 +170,7 @@ def start():
 
         # need to fix this
         for i in range(15):
+
             print('\n\n\n\n')
             # take random numbers from 0 to 255, convert them to binary and get 64 bit key
             key = key_gen()
@@ -177,16 +178,18 @@ def start():
             print_mat_linear(key)
             space()
 
-            F = F_fun(left_block,right_block,key)
+            # F function over right block and key
+            F = F_fun(right_block,key)
 
             print("\nAfter \tXOR function\t - F - : \n")
             print_mat_linear(F)
             space()
 
+            # xor over left block and F result and swap the values
             left_block, right_block = xor(left_block,right_block,F)
 
             if i < 5:
-                time.sleep(2)
+                time.sleep(1)
             elif i < 8:
                 time.sleep(0.5)
 
@@ -204,20 +207,17 @@ def start():
         space()
         time.sleep(2)
 
-            
-
 
 start()
 
-# ciphered = ""
+ciphered = ""
 
-# print(cipher)
-# print(cipher[0][0])
-# print(chr(int(cipher[0][0],2)))
+# converting the blocks to cipher text chr(int,2)
 
-# for i in cipher:
-#     for j in cipher:
-#         ciphered += chr(int(i,2))
+for i in range(len(cipher)):
+    for j in range(len(cipher[i])):
+        ciphered += chr(int(cipher[i][j],2))
         
-# print("Cipher text is: ",ciphered)
-# space()
+print("\n\n\n\nCipher text is: \n\n",ciphered)
+space()
+print("\n\n\nEnd of program!")
