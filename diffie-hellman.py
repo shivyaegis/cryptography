@@ -120,3 +120,17 @@ key_a = secret_key(yb,xa,q)
 # secret key of user B
 print("secret key of user B")
 key_b = secret_key(ya,xb,q)
+
+
+# summarising
+print("Summary: \n")
+print("q -> ",q)
+print("alpha -> ",alpha)
+print("\nXa -> ",xa)
+print("Xb -> ",xb)
+print("\nYa -> ",ya)
+print("Yb -> ",yb)
+print("\nkey_a -> ",key_a)
+print("key_b -> ",key_b)
+
+space()
