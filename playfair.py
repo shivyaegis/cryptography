@@ -25,7 +25,7 @@ def print_matrix(table):
         print("|", end=" ")
         for j in range(len(table)):
             print(table[i][j].center(3," "), end="  |  ")
-            # time.sleep(0.2)
+            time.sleep(0.2)
         print("")
         print(("----"*7).center(40,"-"))
 
@@ -145,6 +145,7 @@ def fill_key(k, mesh):
     print("Key matrix after filling key: ")
     print_matrix(mesh)
     print("\n\n")
+    time.sleep(1)
 
     for letter in alp:
         if not intable(letter, mesh) and i < len(mesh) and j < len(mesh):
@@ -176,14 +177,55 @@ def fill_key(k, mesh):
     return mesh
 
 
-# def encrypt(pair_pl, pair_ke, mat):
+def encrypt(pair_pl, mat):
     
-#     # same row/column
-#     # diff row/column
-#     for i in pair_pl:
-#         t1 = [(index1,index2) for index1,value1 in enumerate(mat) for index2,value2 in enumerate(value1) if value2==pair_pl[0][0]]
-#         print(t1[0])
-#     # t2 = [(index1,index2) for index1,value1 in enumerate(mat) for index2,value2 in enumerate(value1) if value2==plain[0]]
+    print('\n\n')
+    print("Encryption Process".center(30," "))
+    encrypted = []
+    for i in range(len(pair_pl)):
+
+        # if plain text is i or j then search for ij in matrix
+        if pair_pl[i][0] == "i" or pair_pl[i][0] == "j":
+            val1 = "ij"
+        else:
+            val1 = pair_pl[i][0]
+        if pair_pl[i][1] == "i" or pair_pl[i][1] == "j":
+            val2 = "ij"
+        else:
+            val2 = pair_pl[i][1]
+        
+        # getting positions of elements of plain text pair in matrix t1 is first element t2 is second element
+
+        t1 = [(index1,index2) for index1,value1 in enumerate(mat) for index2,value2 in enumerate(value1) if value2==val1]
+        t2 = [(index1,index2) for index1,value1 in enumerate(mat) for index2,value2 in enumerate(value1) if value2==val2]
+        
+        print("\nFor plain text:",val1, val2, "the positions in the matrix are:")
+        print(t1[0])
+        print(t2[0])
+
+        # same row/column
+        if t1[0][0] == t2[0][0] or t1[0][1] == t2[0][1]:
+            print("\nPlain text pair is in same row/column")
+            # if it is same row
+            if t1[0][0] == t2[0][0]:
+                encrypted.append(mat[t1[0][0]][(t1[0][1]+1)%5] + mat[t1[0][0]][(t2[0][1]+1)%5])
+                
+            else:
+                encrypted.append(mat[(t1[0][0]+1)%5][t1[0][1]] + mat[(t2[0][0]+1)%5][t2[0][1]])
+
+            print("Encrypted list after inserting ct:",encrypted)
+
+
+        # diff row/column
+        else:
+            print("\nPlain text pair is in different row/column")
+            encrypted.append(mat[t2[0][0]][t1[0][1]] + mat[t1[0][0]][t2[0][1]])
+            print("Encrypted list after inserting ct:",encrypted)
+        
+        print("\n\n")
+        time.sleep(3)
+    print("\n-x-   End of encryption   -x-")
+    return encrypted
 
 
 # defines alphabets
@@ -213,15 +255,20 @@ key = key.lower()
 # get paired lists
 time.sleep(1)
 paired_list_pt = pair(pt)
-paired_list_key = pair(key)
 
 print("\n\n\nPaired pt: ", paired_list_pt)
-print("\n\n\nPaired key: ", paired_list_key)
 
 # fill key matrix with key and remaining alphabets
 time.sleep(1)
 print("\n\n")
 key_mat = fill_key(key, mat)
+time.sleep(1)
 
 # now we need to find ct
-# encrypt(paired_list_pt, paired_list_key, key_mat)
+temp = encrypt(paired_list_pt, key_mat)
+time.sleep(1)
+ct = ""
+for i in temp:
+    ct += i 
+print("\n\nThe plain text was:", pt)
+print("The cipher text is:", ct)
