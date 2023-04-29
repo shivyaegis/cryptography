@@ -18,11 +18,10 @@ Furthermore, I have uploaded the following files:-
 5. Hill
 6. Rail fence
 7. Fiestal
-8. RSA
-9. ElGamal (cryptosystem)
+8. ElGamal (cryptosystem)
 
 (key encryption)
-10. RSA
-11. Diffie-Hellman
+9. RSA
+10. Diffie-Hellman
 
 Hopefully, these code files will help you understand how plain text is encrypted and how secret keys are generated and will provide an insight onto Informational Security or Cryptography.
